@@ -43,13 +43,14 @@
 |-------------------------------------------|----------------------------------------------------|-----------------------------------------------------------------------------|
 | Programa de la Asignatura                 | ICS_ProgramaAsignatura_2024.pdf                     | /InformaciónAsignatura                                                     |
 | Cronograma de la Asignatura               | ICS_Cronograma_4K2_2024.xlsx                        | /InformaciónAsignatura                                                     |
-| Presentaciones                            | <<Numero>>Unidad<<numero>>_<<NombreTema>>_Presentacion.pdf | /MaterialDeEstudio/PresentacionesDeClases                                  |
-| Bibliografía                              | <<NombreDelLibro>>_Bibliografía.pdf                   | /MaterialDeEstudio/Bibliografia/<<Tema>>                                     |
-| Guía de Ejercicios                        | GuiaDeEjercicios_<<Año>>.pdf                          | /MaterialDeEstudio/GuiaDeEjercicios                                        |
-| Templates                                 | Template_<<Nombre del Template>>.(xlsx|docx)          | /Templates/<<TipoDeTemplate>>                                                |
-| Trabajos Conceptuales                     | TrabajoConceptual<<Número de TC>>_<<Titulo>>.pdf       | /Trabajos/TrabajosConceptuales/<<TipoDeTrabajoConceptual>>                   |
-| Trabajos Prácticos                        | TrabajoPractico_<<Titulo>>.pdf                        | //Trabajos /TrabajosPrácticos/<<NombreTP>>                                        |
-| Ejercicios con Resoluciones Propias       | CasoPractico<<NumeroDelCasoPractico>>_<<NombreAutor>>_<<Tema>>.(docx/png) | /MaterialDeEstudio/GuiaDeEjercicios/EjerciciosResueltosConSolucionesPropias |
+| Presentaciones                            | &laquo;&laquo;Numero&raquo;&raquo;Unidad&laquo;&laquo;numero&raquo;&raquo;_&laquo;&laquo;NombreTema&raquo;&raquo;_Presentacion.pdf | /MaterialDeEstudio/PresentacionesDeClases                                  |
+| Bibliografía                              | &laquo;&laquo;NombreDelLibro&raquo;&raquo;_Bibliografía.pdf                   | /MaterialDeEstudio/Bibliografia/&laquo;&laquo;Tema&raquo;&raquo;                                     |
+| Guía de Ejercicios                        | GuiaDeEjercicios_&laquo;&laquo;Año&raquo;&raquo;.pdf                          | /MaterialDeEstudio/GuiaDeEjercicios                                        |
+| Templates                                 | Template_&laquo;&laquo;Nombre del Template&raquo;&raquo;.(xlsx|docx)          | /Templates/&laquo;&laquo;TipoDeTemplate&raquo;&raquo;                                                |
+| Trabajos Conceptuales                     | TrabajoConceptual&laquo;&laquo;Número de TC&raquo;&raquo;_&laquo;&laquo;Titulo&raquo;&raquo;.pdf       | /Trabajos/TrabajosConceptuales/&laquo;&laquo;TipoDeTrabajoConceptual&raquo;&raquo;                   |
+| Trabajos Prácticos                        | TrabajoPractico_&laquo;&laquo;Titulo&raquo;&raquo;.pdf                        | //Trabajos /TrabajosPrácticos/&laquo;&laquo;NombreTP&raquo;&raquo;                                        |
+| Ejercicios con Resoluciones Propias       | CasoPractico&laquo;&laquo;NumeroDelCasoPractico&raquo;&raquo;_&laquo;&laquo;NombreAutor&raquo;&raquo;_&laquo;&laquo;Tema&raquo;&raquo;.(docx/png) | /MaterialDeEstudio/GuiaDeEjercicios/EjerciciosResueltosConSolucionesPropias |
+
 
 ## Glosario
 | **Sigla** | **Significado**                             |
