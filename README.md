@@ -1,5 +1,43 @@
 # ICS2024-4k2-GrupoX
 
+## Estructura del Repositorio
+- **ICS2024-4K2-GrupoX**
+  - InformaciónAsignatura
+  - **MaterialDeEstudio**
+    - PresentacionesDeClases
+    - **Bibliografía**
+      - IngenieríaDeSoftware
+        - TestingDeSoftware
+        - Agile
+        - Lean y Kanban
+        - SCM
+    - **GuiaDeEjercicios**
+      - EjerciciosResueltosConSolucionesPropias
+  - **Templates**
+    - Práctico
+    - Parciales
+  - **Trabajos**
+    - **TrabajosConceptuales**
+      - PosterCientifico
+      - CharlaTED
+    - **TrabajosPrácticos**
+      - TP1-RequerimientosÁgiles–UserStories
+      - TP2-RequerimientosÁgiles–UserStories/Estimaciones
+      - TP3-RequerimientosÁgiles–UserStories/Estimaciones/MVP
+      - TP4-SCM-HerramientasDeSCM–Evaluable
+      - TP5-SCM-UsoDeRepositorio–Evaluable
+      - TP6-RequerimientosÁgiles–ImplementaciónDeUserStories–Evaluable
+      - TP7-Scrum-EjercicioDeAplicación–Evaluable
+      	- ProyectoZoológicoDePlastilina
+      - TP8-Scrum-PlanificaciónDeReleasesYDeSprint–Evaluable
+      - TP9-Testing-MétodosDeCajaNegra
+      - TP10-Testing-MétodosDeCajaNegra
+      - TP11-Testing-SecuenciasDeCasosDePrueba–Evaluable
+      - TP12-Kanban-EjercicioDeAplicación–Evaluable
+      - TP13-Scrum-DinámicaDeRetrospectiva–Evaluable
+      - TP14-Testing-PublicidadEngañosa–Evaluable
+
+
 ## Esquema de Nombrado
 | **Nombre del Ítem de Configuración**      | **Nomenclatura**                                    | **Ubicación Física**                                                        |
 |-------------------------------------------|----------------------------------------------------|-----------------------------------------------------------------------------|
