@@ -43,7 +43,7 @@
 |-------------------------------------------|----------------------------------------------------|-----------------------------------------------------------------------------|
 | Programa de la Asignatura                 | ICS_ProgramaAsignatura_2024.pdf                     | /InformaciónAsignatura                                                     |
 | Cronograma de la Asignatura               | ICS_Cronograma_4K2_2024.xlsx                        | /InformaciónAsignatura                                                     |
-| Presentaciones                            | &lt;&lt;Numero&gt;&gt;Unidad&lt;&lt;Numero&gt;&gt;_&lt;&lt;NombreTema&gt;&gt;_Presentacion.pdf | /MaterialDeEstudio/PresentacionesDeClases                                  |
+| Presentaciones                            | &lt;&lt;Numero&gt;&gt;_&lt;&lt;NombreTema&gt;&gt;_Presentacion.pdf | /MaterialDeEstudio/PresentacionesDeClases                                  |
 | Bibliografía                              | &lt;&lt;NombreDelLibro&gt;&gt;_Bibliografía.pdf                   | /MaterialDeEstudio/Bibliografia/&lt;&lt;Tema&gt;&gt;                                     |
 | Guía de Ejercicios                        | GuiaDeEjercicios_&lt;&lt;Año&gt;&gt;.pdf                          | /MaterialDeEstudio/GuiaDeEjercicios                                        |
 | Templates                                 | Template_&lt;&lt;NombreDelTemplate&gt;&gt;.(xlsx-docx)          | /Templates/&lt;&lt;TipoDeTemplate&gt;&gt;                                                |
