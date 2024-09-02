@@ -41,15 +41,15 @@
 ## Esquema de Nombrado
 | **Nombre del Ítem de Configuración**      | **Nomenclatura**                                    | **Ubicación Física**                                                        |
 |-------------------------------------------|----------------------------------------------------|-----------------------------------------------------------------------------|
-| Programa de la Asignatura                 | ICS_ProgramaAsignatura_2024.pdf                     | /InformaciónAsignatura/                                                     |
-| Cronograma de la Asignatura               | ICS_Cronograma_4K2_2024.xlsx                        | /InformaciónAsignatura/                                                     |
-| Presentaciones                            | <Numero><Unidad><numero>_<NombreTema>_Presentation.pdf | /MaterialDeEstudio/PresentacionesDeClases/                                  |
-| Bibliografía                              | <NombreDelLibro>_Bibliografía.pdf                   | /MaterialDeEstudio/BibliografíaYTextos/                                     |
-| Guía de Ejercicios                        | GuiaDeEjercicios_<Año>.pdf                          | /MaterialDeEstudio/GuiaDeEjercicios/                                        |
-| Templates                                 | Template_<Nombre del Template>_<ext>(docx)          | /Templates/<TipoDeTemplate>/                                                |
-| Trabajos Conceptuales                     | TrabajoConceptual_<Número de TC>_<Título>.pdf       | /Trabajos/TrabajosConceptuales/<TipoDeTrabajoConceptual>/                   |
-| Trabajos Prácticos                        | TrabajoPractico_<Título>.pdf                        | /Trabajos/TrabajosPrácticos/<NroTP>/                                        |
-| Ejercicios con Resoluciones Propias       | CasoPractico_<NumeroDelCasoPractico>_<NombreAutor>_<Tema>.(docx/png) | /MaterialDeEstudio/GuiaDeEjercicios/EjerciciosResueltosConSolucionesPropias/ |
+| Programa de la Asignatura                 | ICS_ProgramaAsignatura_2024.pdf                     | /InformaciónAsignatura                                                     |
+| Cronograma de la Asignatura               | ICS_Cronograma_4K2_2024.xlsx                        | /InformaciónAsignatura                                                     |
+| Presentaciones                            | <<Numero>>Unidad<<numero>>_<<NombreTema>>_Presentacion.pdf | /MaterialDeEstudio/PresentacionesDeClases                                  |
+| Bibliografía                              | <<NombreDelLibro>>_Bibliografía.pdf                   | /MaterialDeEstudio/Bibliografia/<<Tema>>                                     |
+| Guía de Ejercicios                        | GuiaDeEjercicios_<<Año>>.pdf                          | /MaterialDeEstudio/GuiaDeEjercicios                                        |
+| Templates                                 | Template_<<Nombre del Template>>.(xlsx|docx)          | /Templates/<<TipoDeTemplate>>                                                |
+| Trabajos Conceptuales                     | TrabajoConceptual<<Número de TC>>_<<Titulo>>.pdf       | /Trabajos/TrabajosConceptuales/<<TipoDeTrabajoConceptual>>                   |
+| Trabajos Prácticos                        | TrabajoPractico_<<Titulo>>.pdf                        | //Trabajos /TrabajosPrácticos/<<NombreTP>>                                        |
+| Ejercicios con Resoluciones Propias       | CasoPractico<<NumeroDelCasoPractico>>_<<NombreAutor>>_<<Tema>>.(docx/png) | /MaterialDeEstudio/GuiaDeEjercicios/EjerciciosResueltosConSolucionesPropias |
 
 ## Glosario
 | **Sigla** | **Significado**                             |
