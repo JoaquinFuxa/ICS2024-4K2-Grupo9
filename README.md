@@ -45,7 +45,7 @@
 | Cronograma de la Asignatura               | ICS_Cronograma_4K2_2024.xlsx                        | /InformaciónAsignatura                                                     |
 | Presentaciones                            | &lt;&lt;Numero&gt;&gt;_&lt;&lt;NombreTema&gt;&gt;_Presentacion.pdf | /MaterialDeEstudio/PresentacionesDeClases                                  |
 | Bibliografía                              | &lt;&lt;NombreDelLibro&gt;&gt;_Bibliografía.pdf                   | /MaterialDeEstudio/Bibliografia/&lt;&lt;Tema&gt;&gt;                                     |
-| Guía de Ejercicios                        | GuiaDeEjercicios_&lt;&lt;Año&gt;&gt;.pdf                          | /MaterialDeEstudio/GuiaDeEjercicios                                        |
+| Guía de Ejercicios                        | Guia_&lt;&lt;TipoDeGuía&gt;&gt;_&lt;&lt;Año&gt;&gt;.pdf                          | /MaterialDeEstudio/GuiaDeEjercicios                                        |
 | Templates                                 | Template_&lt;&lt;NombreDelTemplate&gt;&gt;.(xlsx-docx)          | /Templates/&lt;&lt;TipoDeTemplate&gt;&gt;                                                |
 | Trabajos Conceptuales                     | TrabajoConceptual&lt;&lt;NúmeroDeTC&gt;&gt;_&lt;&lt;Titulo&gt;&gt;.pdf       | /Trabajos/TrabajosConceptuales/&lt;&lt;TipoDeTrabajoConceptual&gt;&gt;                   |
 | Trabajos Prácticos                        | TrabajoPractico_&lt;&lt;Titulo&gt;&gt;.pdf                        | /Trabajos /TrabajosPrácticos/&lt;&lt;NombreTP&gt;&gt;                                        |
