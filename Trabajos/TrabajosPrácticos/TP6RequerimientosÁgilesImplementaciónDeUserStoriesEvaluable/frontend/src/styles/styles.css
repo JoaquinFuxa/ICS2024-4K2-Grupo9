@@ -1,0 +1,122 @@
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  /* Estilo para el título */
+  .container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Estilo para los párrafos */
+  .container p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #555;
+  }
+  
+  /* Estilo específico para los datos de la cotización en formato de tabla */
+  .quote-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .quote-table th, .quote-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    color: #333;
+
+  }
+  
+  .quote-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #272222;
+
+  }
+  
+  .quote-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  .quote-table tr:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Notification */
+  .payment-form {
+    margin-top: 20px;
+
+  }
+  .inputs-container{
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+
+  }
+  .payment-form input[type="text"], .payment-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .payment-form button {
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .payment-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Notificaciones */
+  .notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050; /* Bootstrap's z-index for toast notifications */
+  }
+  .notification {
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+  }
+  
+  .notification.success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .notification.error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  /* Confirmación */
+  .confirmation {
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: #d4edda;
+    color: #155724;
+    text-align: center;
+  }
