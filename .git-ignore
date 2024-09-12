@@ -1,0 +1,25 @@
+# Ignorar directorios node_modules
+/node_modules
+
+# Ignorar archivos de logs
+*.log
+
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de configuración de IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Ignorar archivos generados por el sistema de construcción
+dist/
+build/
+
+# Ignorar otros archivos de caché
+*.cache
+*.tmp

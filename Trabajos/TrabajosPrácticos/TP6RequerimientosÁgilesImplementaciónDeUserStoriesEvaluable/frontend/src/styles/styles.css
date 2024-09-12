@@ -120,3 +120,10 @@
     color: #155724;
     text-align: center;
   }
+
+  .button-disabled {
+    background-color: #767c78!important; /* Gris claro */
+    border-color: #0d635e; /* Gris claro */
+    cursor: not-allowed; /* Cambia el cursor para indicar que está deshabilitado */
+  }
+  

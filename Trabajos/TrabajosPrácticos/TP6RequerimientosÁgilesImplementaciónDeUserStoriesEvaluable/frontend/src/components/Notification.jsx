@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Toast } from 'react-bootstrap';
 import '../styles/styles.css';
 
-const Notification = ({ status, receiptNumber }) => {
+const Notification = ({ status, receiptNumber, onClose }) => {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
@@ -12,6 +12,12 @@ const Notification = ({ status, receiptNumber }) => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (status) {
+      setShow(true);
+    }
+  }, [status]);
+
   const message = status === 'success'
     ? receiptNumber 
       ? `Pago procesado correctamente. Número de comprobante: ${receiptNumber}` 
@@ -20,7 +26,12 @@ const Notification = ({ status, receiptNumber }) => {
 
   return (
     <div className="notification-container">
-      <Toast className={`bg-${status === 'success' ? 'success' : 'danger'} text-white`} show={show} autohide>
+      <Toast 
+        className={`bg-${status === 'success' ? 'success' : 'danger'} text-white`} 
+        show={show} 
+        autohide 
+        onClose={onClose}
+      >
         <Toast.Body>{message}</Toast.Body>
       </Toast>
     </div>

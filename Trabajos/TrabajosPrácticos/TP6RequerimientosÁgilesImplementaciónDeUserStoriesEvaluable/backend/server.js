@@ -1,45 +1,53 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
-const mercadopago = require('mercadopago');
-const dotenv = require('dotenv');
-
-dotenv.config();
+const nodemailer = require('nodemailer');
+const bodyParser = require('body-parser');
 
 const app = express();
-app.use(bodyParser.json());
+const port = 3000;
+
 app.use(cors());
+app.use(bodyParser.json());
 
-mercadopago.configure({
-  access_token: process.env.ACCESS_TOKEN
+// Middleware
+app.use(cors({
+  origin: 'http://localhost:5173',  // Cambia esto por la URL de tu frontend
+  methods: ['GET', 'POST'],  // Métodos permitidos
+  allowedHeaders: ['Content-Type'],  // Headers permitidos
+}));
+
+app.get('/', (req, res) => {
+  res.send('Bienvenido al servidor de envío de correos.');
 });
+// Ruta para enviar el correo
+app.post('/send-email', async (req, res) => {
+  const { recipientEmail, subject, text } = req.body;
 
-app.post('/crear-preferencia', async (req, res) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'dadordecarga1@gmail.com',  
+      pass: 'qogd ebly cvdz nmqr',  // Contraseña de aplicaciones de Google
+    },
+  });
+
+  const mailOptions = {
+    from: 'dadordecarga1@gmail.com',
+    to: recipientEmail,  
+    subject: subject,
+    text: text,
+  };
+
   try {
-    const preference = {
-      items: [
-        {
-          title: 'Producto de ejemplo',
-          unit_price: 100,
-          quantity: 1,
-        },
-      ],
-      back_urls: {
-        success: 'https://www.your-site/success',
-        failure: 'https://www.your-site/failure',
-        pending: 'https://www.your-site/pending',
-      },
-      auto_return: 'approved',
-    };
-
-    const response = await mercadopago.preferences.create(preference);
-    res.json({ id: response.body.id });
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ message: 'Email enviado con éxito' });
   } catch (error) {
-    console.error('Error al crear la preferencia:', error);
-    res.status(500).json({ error: 'Error al crear la preferencia' });
+    console.error('Error al enviar el correo:', error);
+    res.status(500).json({ message: 'Error al enviar el correo', error });
   }
 });
 
-app.listen(3000, () => {
-  console.log('Servidor corriendo en http://localhost:3000');
+// Iniciar el servidor
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`);
 });

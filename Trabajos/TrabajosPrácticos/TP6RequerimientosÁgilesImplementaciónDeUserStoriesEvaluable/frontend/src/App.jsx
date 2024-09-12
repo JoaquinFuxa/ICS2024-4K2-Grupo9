@@ -1,31 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import QuoteDetails from './components/QuoteDetails';
 import PaymentForm from './components/PaymentForm';
 import Notification from './components/Notification';
 import Confirmation from './components/Confirmation';
+import { getQuoteDetails } from './services/quoteService';
 
-const App = () => { 
-  const [quote, setQuote] = useState({
-    transportista: "Transportista A",
-    calificacion: 4,
-    fechaRetiro: "15-09-2024",
-    fechaEntrega: "20-09-2024",
-    importe: 100,
-    formasPago: ["Tarjeta", "Contado al retirar", "Contado contra entrega"],
-  });
-
+const App = () => {
+  const [quote, setQuote] = useState(null); // Iniciar vacío
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
   const [paymentStatus, setPaymentStatus] = useState(null); // Estado para notificación
   const [confirmationVisible, setConfirmationVisible] = useState(false); // Estado para modal
 
-  const handlePayment = (paymentData) => {
+  useEffect(() => {
+    const quoteData = getQuoteDetails();
+    setQuote(quoteData);
+  }, []);
+
+  const [receiptNumber, setReceiptNumber] = useState(null); // Estado para el número de recibo
+
+  const handlePayment = (paymentData, receiptNumber) => {
     setPaymentStatus('success');  // Mostrar notificación de éxito
+    setReceiptNumber(receiptNumber); // Almacenar el número de recibo
+
     setConfirmationVisible(true); // Mostrar modal de confirmación
   };
+  
 
   const handleCloseConfirmation = () => {
     setConfirmationVisible(false);  // Ocultar modal de confirmación
   };
+
+  if (!quote) return <div>Loading...</div>; 
 
   return (
     <div className='container'>
@@ -34,9 +39,10 @@ const App = () => {
         paymentMethods={quote.formasPago} 
         onPayment={handlePayment} 
         setSelectedPaymentMethod={setSelectedPaymentMethod} 
+        transporterInfo={quote.email}
       />
-      {paymentStatus && <Notification status={paymentStatus} receiptNumber={123} />}
-      <Confirmation 
+    {paymentStatus && <Notification status={paymentStatus} receiptNumber={receiptNumber} />}
+<Confirmation 
         show={confirmationVisible} 
         handleClose={handleCloseConfirmation} 
       />

@@ -5,26 +5,47 @@ import CardImage from '../assets/images/tarjeta.png';
 import AlContadoEntregaImage from '../assets/images/contado contra entrega.png';
 import AlContadoRetirarImage from '../assets/images/contado al retirar.png';
 import Notification from './Notification';
-import { createPreference, openCheckout } from '../services/mercadoPagoService';
 
-const PaymentForm = ({ paymentMethods, onPayment }) => {
+// Función de validación de tarjeta
+const validarTarjeta = (numeroTarjeta) => {
+  const regexTarjeta = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})$/;
+  return regexTarjeta.test(numeroTarjeta.replace(/\s+/g, '')); // Elimina espacios y verifica
+};
+
+const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
   const imageMethods = {
     'Tarjeta': CardImage,
     'Contado contra entrega': AlContadoEntregaImage,
     'Contado al retirar': AlContadoRetirarImage
   };
 
+  const tipoDocumentos = [
+    'DNI',
+    'Pasaporte',
+    'CUIT',
+    'LE',
+    'LC'
+  ];
+
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [paymentData, setPaymentData] = useState({
     nombre: '',
-    direccion: ''
+    numeroTarjeta: '',
+    pin: '',
+    numeroDocumento: '',
+    tipoDocumento: ''
   });
   const [status, setStatus] = useState(null);
   const [receiptNumber, setReceiptNumber] = useState(null);
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [notificationVisible, setNotificationVisible] = useState(false);
 
   const handleCardClick = (method) => {
+    if (isConfirmed) return;
     setSelectedMethod(method);
     setStatus(null);
+    setErrors({});
   };
 
   const handleInputChange = (e) => {
@@ -34,32 +55,63 @@ const PaymentForm = ({ paymentMethods, onPayment }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (selectedMethod === 'Tarjeta' && !paymentData.nombre) {
+    if (isConfirmed) return;
+
+    let formErrors = {};
+
+    if (selectedMethod === 'Tarjeta') {
+      const { nombre, numeroTarjeta, pin, numeroDocumento, tipoDocumento } = paymentData;
+
+      if (!nombre) formErrors.nombre = 'El nombre es requerido.';
+      if (!numeroTarjeta) formErrors.numeroTarjeta = 'El número de tarjeta es requerido.';
+      if (!pin) formErrors.pin = 'El PIN es requerido.';
+      if (!numeroDocumento) formErrors.numeroDocumento = 'El número de documento es requerido.';
+      if (!tipoDocumento) formErrors.tipoDocumento = 'El tipo de documento es requerido.';
+
+      if (!validarTarjeta(numeroTarjeta)) {
+        formErrors.numeroTarjeta = 'Número de tarjeta inválido.';
+      }
+    }
+
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
       setStatus('error');
       return;
     }
 
-    if (selectedMethod === 'Tarjeta') {
-      try {
-        const preferenceId = await createPreference({
-          nombre: paymentData.nombre,
-          monto: 100 
-        });
-
-        openCheckout(preferenceId);
-
+    try {
+      if (selectedMethod === 'Tarjeta') {
         setStatus('success');
-        setReceiptNumber('123456789');
-        onPayment(paymentData);
-
-      } catch (error) {
-        setStatus('error');
+        setReceiptNumber(Math.floor(Math.random() * 1000) + 1);
+      } else {
+        setReceiptNumber(null);
       }
-    } else {
-      setReceiptNumber(null);
+
+      fetch('http://localhost:3000/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          recipientEmail: `${transporterInfo}`,
+          subject: 'Confirmación de Cotización',
+          text: `Tu cotización ha sido confirmada. Método de pago: ${selectedMethod}${receiptNumber ? `. Número de recibo: ${receiptNumber}` : ''}.`,
+        }),
+      })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+      
       onPayment(paymentData);
-      setStatus('success');
+      setIsConfirmed(true);
+      setNotificationVisible(true);
+    } catch (error) {
+      console.error('Error en la solicitud fetch:', error);
     }
+  };
+
+  const handleNotificationClose = () => {
+    setNotificationVisible(false);
   };
 
   return (
@@ -89,23 +141,80 @@ const PaymentForm = ({ paymentMethods, onPayment }) => {
 
         {selectedMethod === 'Tarjeta' && (
           <div className="payment-fields">
-            <input
-              type="text"
-              name="nombre"
-              placeholder="Nombre Completo"
-              value={paymentData.nombre}
-              onChange={handleInputChange}
-              className="form-control"
-            />
+            <div className="mb-2">
+              <input
+                type="text"
+                name="nombre"
+                placeholder="Nombre Completo" 
+                value={paymentData.nombre}
+                onChange={handleInputChange}
+                className="form-control"
+              />
+              {errors.nombre && <small className="text-danger">{errors.nombre}</small>}
+            </div>
+            <div className="mb-2">
+              <input
+                type="text"
+                name="numeroTarjeta"
+                placeholder="Número de Tarjeta"
+                value={paymentData.numeroTarjeta}
+                onChange={handleInputChange}
+                className="form-control"
+              />
+              {errors.numeroTarjeta && <small className="text-danger">{errors.numeroTarjeta}</small>}
+            </div>
+            <div className="mb-2">
+              <input
+                type="password"
+                name="pin"
+                placeholder="PIN"
+                value={paymentData.pin}
+                onChange={handleInputChange}
+                className="form-control"
+              />
+              {errors.pin && <small className="text-danger">{errors.pin}</small>}
+            </div>
+            <div className="mb-2">
+              <select
+                name="tipoDocumento"
+                value={paymentData.tipoDocumento}
+                onChange={handleInputChange}
+                className="form-control"
+              >
+                <option value="">Seleccione un tipo de documento</option>
+                {tipoDocumentos.map((tipo) => (
+                  <option key={tipo} value={tipo}>
+                    {tipo}
+                  </option>
+                ))}
+              </select>
+              {errors.tipoDocumento && <small className="text-danger">{errors.tipoDocumento}</small>}
+            </div>
+            <div className="mb-2">
+              <input
+                type="text"
+                name="numeroDocumento"
+                placeholder="Número de Documento"
+                value={paymentData.numeroDocumento}
+                onChange={handleInputChange}
+                className="form-control"
+              />
+              {errors.numeroDocumento && <small className="text-danger">{errors.numeroDocumento}</small>}
+            </div>
           </div>
         )}
-
-        <Button type="submit" variant="primary" disabled={!selectedMethod}>
+        <Button type="submit" variant="primary" disabled={isConfirmed}>
           Confirmar
         </Button>
       </form>
 
-      {status && <Notification status={status} receiptNumber={receiptNumber} />}
+      {notificationVisible && (
+        <Notification 
+          status={status} 
+          receiptNumber={receiptNumber} 
+          onClose={handleNotificationClose}
+        />
+      )}
     </div>
   );
 };
