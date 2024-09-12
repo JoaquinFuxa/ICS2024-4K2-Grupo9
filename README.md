@@ -58,11 +58,15 @@ Este repositorio contiene todos los materiales necesarios para el cursado de **I
 
 ## Glosario
 
-| **Sigla** | **Significado**                  |
-| --------- | -------------------------------- |
-| TC        | Trabajo Conceptual               |
-| TP        | Trabajo Práctico                 |
-| ICS       | Ingeniería de Calidad y Software |
+| **Sigla** | **Significado**                                |
+| --------- | ---------------------------------------------- |
+| TC        | Trabajo Conceptual                             |
+| TP        | Trabajo Práctico                               |
+| ICS       | Ingeniería de Calidad y Software               |
+| DOCX      | Formato de documento de Microsoft Word         |
+| PDF       | Formato de documento portátil creado por Adobe |
+| XLSX      | Formato de hoja de cálculo de Microsoft Excel  |
+| PNG       | Formato de imagen que admite transparencia     |
 
 ## Criterios para establecer Línea base
 
