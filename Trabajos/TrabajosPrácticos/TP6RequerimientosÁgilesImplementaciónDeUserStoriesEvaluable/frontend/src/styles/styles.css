@@ -3,7 +3,6 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9;
     border-radius: 8px;
   }
   
@@ -23,35 +22,43 @@
   }
   
   /* Estilo específico para los datos de la cotización en formato de tabla */
+  .quote-details {
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  
   .quote-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .quote-table th, .quote-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
-    color: #333;
+    margin-top: 1rem;
+    border-radius: 8px;
 
   }
   
   .quote-table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-    color: #272222;
-
+    padding: 0.75rem;
+    text-align: left;
+    border-radius: 8px;
   }
   
-  .quote-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-    color: #333;
+  .quote-table td, .quote-table th {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e2e2;
   }
   
-  .quote-table tr:hover {
-    background-color: #e0e0e0;
+  .quote-table tr:nth-child(even), .quote-table th {
+    background-color: #EAF6FF;
   }
+  
+  .quote-table tr:hover, .quote-table th:hover {
+    background-color: #D0EBFF;
+  }
+  
+  .quote-table th, .quote-table td {
+    color: #03045E;
+  }
+  
   
   /* Notification */
   .payment-form {
@@ -125,5 +132,24 @@
     background-color: #767c78!important; /* Gris claro */
     border-color: #0d635e; /* Gris claro */
     cursor: not-allowed; /* Cambia el cursor para indicar que está deshabilitado */
+  }
+  .payment-form {
+    background-color: #CAF0F8;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .payment-fields {
+    background-color: #EAF6FF;
+  }
+  
+  .payment-method-card {
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+  
+  .payment-method-card:hover {
+    border-color: #00B4D8;
   }
   

@@ -19,10 +19,10 @@ const App = () => {
   const [receiptNumber, setReceiptNumber] = useState(null); // Estado para el número de recibo
 
   const handlePayment = (paymentData, receiptNumber) => {
+    if(receiptNumber){
+      setReceiptNumber(receiptNumber); // Almacenar el número de recibo
+    }
     setPaymentStatus('success');  // Mostrar notificación de éxito
-    setReceiptNumber(receiptNumber); // Almacenar el número de recibo
-
-    setConfirmationVisible(true); // Mostrar modal de confirmación
   };
   
 

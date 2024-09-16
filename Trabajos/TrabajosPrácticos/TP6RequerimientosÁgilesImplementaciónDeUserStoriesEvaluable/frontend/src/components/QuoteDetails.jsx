@@ -1,6 +1,7 @@
 import React from 'react';
-import '../styles/styles.css';  
+import '../styles/styles.css';
 import StarImage from '../assets/images/star.png';
+
 const QuoteDetails = ({ quote }) => {
 
   const renderStars = (rating) => {
@@ -14,7 +15,7 @@ const QuoteDetails = ({ quote }) => {
           <img key={`full-${index}`} src={StarImage} alt="Star" style={{ height: '20px', marginRight: '5px' }} />
         ))}
         {halfStar && (
-          <img src={StarImage} alt="Half Star" style={{ height: '40px', marginRight: '5px', opacity: '0.5' }} />
+          <img src={StarImage} alt="Half Star" style={{ height: '20px', marginRight: '5px', opacity: '0.5' }} />
         )}
         {Array(emptyStars).fill().map((_, index) => (
           <img key={`empty-${index}`} src={StarImage} alt="Empty Star" style={{ height: '20px', marginRight: '5px', opacity: '0.2' }} />
@@ -24,28 +25,28 @@ const QuoteDetails = ({ quote }) => {
   };
 
   return (
-    <div className='container'>
-      <h2>Detalles de la Cotización</h2>
+    <div className='container quote-details'>
+      <h2 style={{ color: '#0077B6' }}>Detalles de la Cotización</h2>
       <table className="quote-table">
         <tbody>
           <tr>
-            <th>Transportista</th>
+            <th style={{ color: '#0077B6' }}>Transportista</th>
             <td>{quote.transportista}</td>
           </tr>
           <tr>
-            <th>Calificación</th>
+            <th style={{ color: '#0077B6' }}>Calificación</th>
             <td>{renderStars(quote.calificacion)}</td>
           </tr>
           <tr>
-            <th>Fecha de Retiro</th>
+            <th style={{ color: '#0077B6' }}>Fecha de Retiro</th>
             <td>{quote.fechaRetiro}</td>
           </tr>
           <tr>
-            <th>Fecha de Entrega</th>
+            <th style={{ color: '#0077B6' }}>Fecha de Entrega</th>
             <td>{quote.fechaEntrega}</td>
           </tr>
           <tr>
-            <th>Importe</th>
+            <th style={{ color: '#0077B6' }}>Importe</th>
             <td>${quote.importe}</td>
           </tr>
         </tbody>

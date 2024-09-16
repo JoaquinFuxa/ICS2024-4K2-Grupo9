@@ -6,7 +6,7 @@ export const getQuoteDetails = () => {
       fechaEntrega: "20-09-2024",
       importe: 1,
       formasPago: ["Tarjeta", "Contado al retirar", "Contado contra entrega"],
-      email: 'sebacolque@gmail.com',
+      email: 'sebacolque06@gmail.com',
       estado: 'Cotizado'
     };
   };

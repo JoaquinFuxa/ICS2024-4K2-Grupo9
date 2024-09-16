@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import '../styles/styles.css';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Alert } from 'react-bootstrap';
 import CardImage from '../assets/images/tarjeta.png';
 import AlContadoEntregaImage from '../assets/images/contado contra entrega.png';
 import AlContadoRetirarImage from '../assets/images/contado al retirar.png';
 import Notification from './Notification';
+import mockTarjetas from '../services/cardService.js';
 
 // Función de validación de tarjeta
 const validarTarjeta = (numeroTarjeta) => {
@@ -52,33 +53,60 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
     setPaymentData({ ...paymentData, [e.target.name]: e.target.value });
   };
 
+  const validarTarjetaMockeada = (numeroTarjeta) => {
+    const tarjetaEncontrada = mockTarjetas.find(tarjeta => tarjeta.numeroTarjeta === numeroTarjeta);
+    if (!tarjetaEncontrada) {
+      return { esValida: false, mensaje: 'Tarjeta no encontrada.' };
+    }
+  
+    if (tarjetaEncontrada.estado !== 'vigente') {
+      return { esValida: false, mensaje: 'Tarjeta no válida.' };
+    }
+  
+    if (tarjetaEncontrada.saldo === 0) {
+      return { esValida: false, mensaje: 'Saldo insuficiente.' };
+    }
+  
+    return { esValida: true, mensaje: 'Tarjeta válida.' };
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (isConfirmed) return;
-
+  
     let formErrors = {};
-
+  
+    if (!selectedMethod) {
+      setErrors({ metodoPago: 'Debes seleccionar un método de pago.' });
+      return;
+    }
+  
     if (selectedMethod === 'Tarjeta') {
       const { nombre, numeroTarjeta, pin, numeroDocumento, tipoDocumento } = paymentData;
-
+  
       if (!nombre) formErrors.nombre = 'El nombre es requerido.';
       if (!numeroTarjeta) formErrors.numeroTarjeta = 'El número de tarjeta es requerido.';
       if (!pin) formErrors.pin = 'El PIN es requerido.';
       if (!numeroDocumento) formErrors.numeroDocumento = 'El número de documento es requerido.';
       if (!tipoDocumento) formErrors.tipoDocumento = 'El tipo de documento es requerido.';
-
+  
+      const validacionMock = validarTarjetaMockeada(numeroTarjeta);
+      if (!validacionMock.esValida) {
+        formErrors.numeroTarjeta = validacionMock.mensaje;
+      }
       if (!validarTarjeta(numeroTarjeta)) {
         formErrors.numeroTarjeta = 'Número de tarjeta inválido.';
       }
     }
-
+  
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
       setStatus('error');
+      setNotificationVisible(true);
       return;
     }
-
+  
     try {
       if (selectedMethod === 'Tarjeta') {
         setStatus('success');
@@ -86,7 +114,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
       } else {
         setReceiptNumber(null);
       }
-
+  
       fetch('http://localhost:3000/send-email', {
         method: 'POST',
         headers: {
@@ -101,14 +129,17 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
         .then(response => response.json())
         .then(data => console.log(data))
         .catch(error => console.error('Error:', error));
-      
-      onPayment(paymentData);
+  
+      onPayment(paymentData, receiptNumber);
       setIsConfirmed(true);
       setNotificationVisible(true);
     } catch (error) {
       console.error('Error en la solicitud fetch:', error);
+      setStatus('error');
+      setNotificationVisible(true);
     }
   };
+  
 
   const handleNotificationClose = () => {
     setNotificationVisible(false);
@@ -116,7 +147,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
 
   return (
     <div className="container payment-form">
-      <h2>Forma de Pago</h2>
+      <h2 style={{ color: '#0077B6' }}>Forma de Pago</h2>
       <form onSubmit={handleSubmit}>
         <div className="row" style={{ padding: '2rem' }}>
           {paymentMethods.map((method) => (
@@ -124,6 +155,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
               <Card
                 className={`cursor-pointer ${selectedMethod === method ? 'border-primary' : 'border-secondary'}`}
                 onClick={() => handleCardClick(method)}
+                style={{ borderColor: selectedMethod === method ? '#0077B6' : '#CAF0F8' }}
               >
                 <Card.Img 
                   variant="top" 
@@ -132,7 +164,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
                   style={{ height: '200px', objectFit: 'contain' }} 
                 />
                 <Card.Body>
-                  <Card.Title>{method}</Card.Title>
+                  <Card.Title style={{ color: '#0077B6' }}>{method}</Card.Title>
                 </Card.Body>
               </Card>
             </div>
@@ -140,7 +172,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
         </div>
 
         {selectedMethod === 'Tarjeta' && (
-          <div className="payment-fields">
+          <div className="payment-fields" style={{ backgroundColor: '#EAF6FF', padding: '1rem', borderRadius: '5px' }}>
             <div className="mb-2">
               <input
                 type="text"
@@ -149,6 +181,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
                 value={paymentData.nombre}
                 onChange={handleInputChange}
                 className="form-control"
+                style={{ borderColor: '#0077B6' }}
               />
               {errors.nombre && <small className="text-danger">{errors.nombre}</small>}
             </div>
@@ -160,6 +193,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
                 value={paymentData.numeroTarjeta}
                 onChange={handleInputChange}
                 className="form-control"
+                style={{ borderColor: '#0077B6' }}
               />
               {errors.numeroTarjeta && <small className="text-danger">{errors.numeroTarjeta}</small>}
             </div>
@@ -171,6 +205,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
                 value={paymentData.pin}
                 onChange={handleInputChange}
                 className="form-control"
+                style={{ borderColor: '#0077B6' }}
               />
               {errors.pin && <small className="text-danger">{errors.pin}</small>}
             </div>
@@ -180,6 +215,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
                 value={paymentData.tipoDocumento}
                 onChange={handleInputChange}
                 className="form-control"
+                style={{ borderColor: '#0077B6' }}
               >
                 <option value="">Seleccione un tipo de documento</option>
                 {tipoDocumentos.map((tipo) => (
@@ -198,14 +234,26 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
                 value={paymentData.numeroDocumento}
                 onChange={handleInputChange}
                 className="form-control"
+                style={{ borderColor: '#0077B6' }}
               />
               {errors.numeroDocumento && <small className="text-danger">{errors.numeroDocumento}</small>}
             </div>
           </div>
         )}
-        <Button type="submit" variant="primary" disabled={isConfirmed}>
-          Confirmar
-        </Button>
+
+      <Button
+        type="submit"
+        variant="primary"
+        style={{
+          backgroundColor: isConfirmed ? '#B0B0B0' : '#0077B6', // Gris si está deshabilitado, azul si no lo está
+          borderColor: isConfirmed ? '#B0B0B0' : '#0077B6',
+          marginTop: '1rem',
+          cursor: isConfirmed ? 'not-allowed' : 'pointer', // Cambia el cursor si está deshabilitado
+        }}
+        disabled={isConfirmed}
+      >
+        {isConfirmed ? 'Confirmado' : 'Confirmar'}
+      </Button>
       </form>
 
       {notificationVisible && (
@@ -215,8 +263,15 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
           onClose={handleNotificationClose}
         />
       )}
+      {errors.metodoPago && (
+      <Alert variant="danger" className="mt-3">
+        <i className="bi bi-exclamation-triangle-fill me-2"></i>
+        {errors.metodoPago}
+      </Alert>
+      )}
     </div>
   );
 };
 
 export default PaymentForm;
+
