@@ -9,6 +9,7 @@ const Notification = ({ status, receiptNumber, onClose }) => {
     const timer = setTimeout(() => {
       setShow(false);
     }, 5000);
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -19,16 +20,15 @@ const Notification = ({ status, receiptNumber, onClose }) => {
   }, [status]);
 
   const message = status === 'success'
-    ?  
-      'Se ha informado al transportista el estado de la cotizacion.'
+    ? 'Se ha informado al transportista el estado de la cotización.'
     : 'Error en el procesamiento del pago.';
 
   return (
-    <div className="notification-container">
-      <Toast 
-        className={`bg-${status === 'success' ? 'success' : 'danger'} text-white`} 
-        show={show} 
-        autohide 
+    <div className='notification-container'>
+      <Toast
+        className={`bg-${status === 'success' ? 'success' : 'danger'} text-white`}
+        show={show}
+        autohide
         onClose={onClose}
       >
         <Toast.Body>{message}</Toast.Body>

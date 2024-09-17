@@ -159,19 +159,19 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
   };
 
   return (
-    <div className="container payment-form">
+    <div className='container payment-form'>
       <h2 style={{ color: '#0077B6' }}>Forma de Pago</h2>
       <form onSubmit={handleSubmit}>
-        <div className="row" style={{ padding: '2rem' }}>
+        <div className='row' style={{ padding: '2rem' }}>
           {paymentMethods.map((method) => (
-            <div className="col-md-4 mb-4" key={method}>
+            <div className='col-md-4 mb-4' key={method}>
               <Card
                 className={`cursor-pointer ${selectedMethod === method ? 'border-primary' : 'border-secondary'} card`}
                 onClick={() => handleCardClick(method)}
                 style={{ borderColor: selectedMethod === method ? '#0077B6' : '#CAF0F8', borderWidth: selectedMethod === method ? '3px' : '0px'}}
               >
                 <Card.Img 
-                  variant="top" 
+                  variant='top' 
                   src={imageMethods[method]}  
                   alt={method}
                   className='card'
@@ -186,84 +186,84 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
         </div>
 
         {selectedMethod === 'Tarjeta' && (
-          <div className="payment-fields" style={{ backgroundColor: '#EAF6FF', padding: '1rem', borderRadius: '5px' }}>
-            <div className="mb-2">
+          <div className='payment-fields' style={{ backgroundColor: '#EAF6FF', padding: '1rem', borderRadius: '5px' }}>
+            <div className='mb-2'>
               <input
-                type="text"
-                name="nombre"
-                placeholder="Nombre Completo" 
+                type='text'
+                name='nombre'
+                placeholder='Nombre Completo' 
                 value={paymentData.nombre}
                 onChange={handleInputChange}
-                className="form-control"
+                className='form-control'
                 style={{ borderColor: '#0077B6' }}
               />
-              {errors.nombre && <small className="text-danger">{errors.nombre}</small>}
+              {errors.nombre && <small className='text-danger'>{errors.nombre}</small>}
             </div>
-            <div className="mb-2">
+            <div className='mb-2'>
               <input
-                type="text"
-                name="numeroTarjeta"
-                placeholder="Número de Tarjeta"
+                type='text'
+                name='numeroTarjeta'
+                placeholder='Número de Tarjeta'
                 value={paymentData.numeroTarjeta}
                 onChange={(e) => {
                   const filteredInput = e.target.value.replace(/\D/g, ''); 
                   setPaymentData({ ...paymentData, numeroTarjeta: filteredInput });
                 }}
-                className="form-control"
+                className='form-control'
                 style={{ borderColor: '#0077B6' }}
                 maxLength={16} 
               />
-              {errors.numeroTarjeta && <small className="text-danger">{errors.numeroTarjeta}</small>}
+              {errors.numeroTarjeta && <small className='text-danger'>{errors.numeroTarjeta}</small>}
             </div>
 
-            <div className="mb-2">
+            <div className='mb-2'>
               <input
-                type="password"
-                name="pin"
-                placeholder="PIN"
+                type='password'
+                name='pin'
+                placeholder='PIN'
                 value={paymentData.pin}
                 onChange={handleInputChange}
-                className="form-control"
+                className='form-control'
                 style={{ borderColor: '#0077B6' }}
                 maxLength={3}
               />
-              {errors.pin && <small className="text-danger">{errors.pin}</small>}
+              {errors.pin && <small className='text-danger'>{errors.pin}</small>}
             </div>
-            <div className="mb-2">
+            <div className='mb-2'>
               <select
-                name="tipoDocumento"
+                name='tipoDocumento'
                 value={paymentData.tipoDocumento}
                 onChange={handleInputChange}
-                className="form-control"
+                className='form-control'
                 style={{ borderColor: '#0077B6' }}
               >
-                <option value="">Seleccione un tipo de documento</option>
+                <option value=''>Seleccione un tipo de documento</option>
                 {tipoDocumentos.map((tipo) => (
                   <option key={tipo} value={tipo}>
                     {tipo}
                   </option>
                 ))}
               </select>
-              {errors.tipoDocumento && <small className="text-danger">{errors.tipoDocumento}</small>}
+              {errors.tipoDocumento && <small className='text-danger'>{errors.tipoDocumento}</small>}
             </div>
-            <div className="mb-2">
+            <div className='mb-2'>
               <input
-                type="text"
-                name="numeroDocumento"
-                placeholder="Número de Documento"
+                type='text'
+                name='numeroDocumento'
+                placeholder='Número de Documento'
                 value={paymentData.numeroDocumento}
                 onChange={handleInputChange}
-                className="form-control"
+                className='form-control'
                 style={{ borderColor: '#0077B6' }}
               />
-              {errors.numeroDocumento && <small className="text-danger">{errors.numeroDocumento}</small>}
+              {errors.numeroDocumento && <small className='text-danger'>{errors.numeroDocumento}</small>}
             </div>
           </div>
         )}
 
       <Button
-        type="submit"
-        variant="primary"
+        type='submit'
+        variant='primary'
         style={{
           backgroundColor: isConfirmed ? '#B0B0B0' : '#0077B6',
           borderColor: isConfirmed ? '#B0B0B0' : '#0077B6',
@@ -286,8 +286,8 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
       )}
       
       {errors.metodoPago && (
-      <Alert variant="danger" className="mt-3">
-        <i className="bi bi-exclamation-triangle-fill me-2"></i>
+      <Alert variant='danger' className='mt-3'>
+        <i className='bi bi-exclamation-triangle-fill me-2'></i>
         {errors.metodoPago}
       </Alert>
       )}

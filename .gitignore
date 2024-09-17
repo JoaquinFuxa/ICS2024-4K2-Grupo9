@@ -1,6 +1,7 @@
 # Ignorar directorios node_modules
-/node_modules
-
+node_modules
+Trabajos/TrabajosPrácticos/TP6RequerimientosÁgilesImplementaciónDeUserStoriesEvaluable/backend/node_modules
+Trabajos/TrabajosPrácticos/TP6RequerimientosÁgilesImplementaciónDeUserStoriesEvaluable/frontend/node_modules
 # Ignorar archivos de logs
 *.log
 

@@ -12,20 +12,34 @@ const QuoteDetails = ({ quote }) => {
     return (
       <>
         {Array(fullStars).fill().map((_, index) => (
-          <img key={`full-${index}`} src={StarImage} alt="Star" style={{ height: '20px', marginRight: '5px' }} />
+          <img
+            key={`full-${index}`}
+            src={StarImage}
+            alt="Star"
+            style={{ height: '20px', marginRight: '5px' }}
+          />
         ))}
         {halfStar && (
-          <img src={StarImage} alt="Half Star" style={{ height: '20px', marginRight: '5px', opacity: '0.5' }} />
+          <img
+            src={StarImage}
+            alt="Half Star"
+            style={{ height: '20px', marginRight: '5px', opacity: '0.5' }}
+          />
         )}
         {Array(emptyStars).fill().map((_, index) => (
-          <img key={`empty-${index}`} src={StarImage} alt="Empty Star" style={{ height: '20px', marginRight: '5px', opacity: '0.2' }} />
+          <img
+            key={`empty-${index}`}
+            src={StarImage}
+            alt="Empty Star"
+            style={{ height: '20px', marginRight: '5px', opacity: '0.2' }}
+          />
         ))}
       </>
     );
   };
 
   return (
-    <div className='container quote-details'>
+    <div className="container quote-details">
       <h2 style={{ color: '#0077B6' }}>Detalles de la Cotización</h2>
       <table className="quote-table">
         <tbody>
