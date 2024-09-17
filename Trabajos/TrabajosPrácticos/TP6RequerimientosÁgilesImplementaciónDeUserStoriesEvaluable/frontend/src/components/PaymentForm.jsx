@@ -42,9 +42,9 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
   const [errors, setErrors] = useState({});
   const [notificationVisible, setNotificationVisible] = useState(false);
   const [showModal, setShowModal] = useState(false); // Estado para el modal
-
+  const [isClickedOtherPayment, setIsClickedOtherPayment] = useState(false);
   const handleCardClick = (method) => {
-    if (isConfirmed) return;
+    if (isConfirmed) setIsClickedOtherPayment(true);
     setSelectedMethod(method);
     setStatus(null);
     setErrors({});
@@ -52,13 +52,19 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    if (name === 'pin' && value.length > 3) {
-      return;
-    }
   
-    setPaymentData({ ...paymentData, [e.target.name]: e.target.value });
+    const filteredValue = name === 'pin' ? value.replace(/\D/g, '') : value;
+  
+    const finalValue = name === 'pin' && filteredValue.length > 3
+      ? filteredValue.slice(0, 3) 
+      : filteredValue;
+  
+    setPaymentData(prevData => ({
+      ...prevData,
+      [name]: finalValue
+    }));
   };
+  
 
   const validarTarjetaMockeada = (numeroTarjeta) => {
     const tarjetaEncontrada = mockTarjetas.find(tarjeta => tarjeta.numeroTarjeta === numeroTarjeta);
@@ -123,7 +129,6 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
       } else {
         setReceiptNumber(null);
       }
-  console.log(receiptNumber);
       fetch('http://localhost:3000/send-email', {
         method: 'POST',
         headers: {
@@ -226,6 +231,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
                 className='form-control'
                 style={{ borderColor: '#0077B6' }}
                 maxLength={3}
+                
               />
               {errors.pin && <small className='text-danger'>{errors.pin}</small>}
             </div>
@@ -292,8 +298,13 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
       </Alert>
       )}
       <Confirmation show={showModal} handleClose={handleCloseModal} receiptNumber={receiptNumber} />
-
+      {isClickedOtherPayment && (
+        <Alert variant='danger' className='mt-3' >
+          {'La cotizacion ya ha sido confirmada.'}
+        </Alert>
+      )}
     </div>
+    
   );
 };
 
