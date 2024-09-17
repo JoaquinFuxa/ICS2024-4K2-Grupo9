@@ -1,0 +1,199 @@
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+
+  .container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .container p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #555;
+  }
+  
+
+  /* Quote */
+  .quote-details {
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .quote-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    border-radius: 8px;
+
+  }
+  
+  .quote-table th {
+    padding: 0.75rem;
+    text-align: left;
+    border-radius: 8px;
+  }
+  
+  .quote-table td, .quote-table th {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e2e2;
+  }
+  
+  .quote-table tr:nth-child(even), .quote-table th {
+    background-color: #EAF6FF;
+  }
+  
+  .quote-table tr:hover, .quote-table th:hover {
+    background-color: #D0EBFF;
+  }
+  
+  .quote-table th, .quote-table td {
+    color: #03045E;
+  }
+  
+  
+  /* Payment Form */
+  .payment-form {
+    margin-top: 20px;
+
+  }
+  .inputs-container{
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+
+  }
+  .payment-form input[type="text"], .payment-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .payment-form button {
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .payment-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Notificaciones */
+  .notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+  }
+  .notification {
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+  }
+  
+  .notification.success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .notification.error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  /* Confirmación */
+  .confirmation {
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: #d4edda;
+    color: #155724;
+    text-align: center;
+  }
+
+  .button-disabled {
+    background-color: #767c78!important; 
+    border-color: #0d635e; 
+    cursor: not-allowed;
+  }
+  .payment-form {
+    background-color: #CAF0F8;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .payment-method-card {
+    transition: border-color 0.3s ease;
+  }
+  
+  .payment-method-card:hover {
+    border-color: #00B4D8;
+  }
+  .form-control{
+    background-color: #a8b8cb !important;
+  }
+  .payment-form select{
+    background-color: #a8b8cb !important;
+    color: rgb(39, 14, 107)!important;
+  }
+  .form-control::placeholder,.payment-form select::placeholder{
+    color: rgb(39, 14, 107)!important;
+  }
+  /* CARD */
+  .card:hover{
+    cursor: pointer;
+    filter: brightness(.95);
+  }
+
+/* Modal */
+
+.modal-header-custom {
+  background-color: #0077B6; 
+  color: #CAF0F8;
+}
+
+.modal-title-custom {
+  color: #CAF0F8; 
+}
+
+.modal-body-custom {
+  background-color: #90E0EF; 
+  color: #03045E; 
+}
+
+.modal-footer-custom {
+  background-color: #00B4D8; 
+}
+
+.btn-custom-close {
+  background-color: #03045E; 
+  border-color: #03045E;
+  color: #CAF0F8;
+}
+.btn-custom-close{
+  background-color: #0077B6 !important; 
+
+}
+.btn-custom-close:hover {
+  background-color: #03045E !important; 
+  border-color: #0077B6 !important;
+  color: white !important;
+}
