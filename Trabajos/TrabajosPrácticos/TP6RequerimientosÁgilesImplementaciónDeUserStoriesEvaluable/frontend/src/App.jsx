@@ -40,10 +40,10 @@ const App = () => {
       <PaymentForm 
         paymentMethods={quote.formasPago} 
         onPayment={handlePayment} 
-        setSelectedPaymentMethod={setSelectedPaymentMethod} 
         transporterInfo={quote.email}
-      />
-    {paymentStatus && <Notification status={paymentStatus} receiptNumber={receiptNumber} />}
+        setSelectedPaymentMethod={setSelectedPaymentMethod} 
+        selectedPaymentMethod={selectedPaymentMethod}/>
+    {paymentStatus && <Notification status={paymentStatus} paymentMethod={selectedPaymentMethod} />}
     </div>
   );
 };

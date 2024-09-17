@@ -13,7 +13,7 @@ const validarTarjeta = (numeroTarjeta) => {
   return regexTarjeta.test(numeroTarjeta.replace(/\s+/g, ''));
 };
 
-const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
+const PaymentForm = ({ paymentMethods, onPayment, transporterInfo,setSelectedPaymentMethod,selectedPaymentMethod}) => {
   const imageMethods = {
     'Tarjeta': CardImage,
     'Contado contra entrega': AlContadoEntregaImage,
@@ -28,7 +28,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
     'LC'
   ];
 
-  const [selectedMethod, setSelectedMethod] = useState(null);
+  // const [selectedPaymentMethod, setselectedPaymentMethod] = useState(null);
   const [paymentData, setPaymentData] = useState({
     nombre: '',
     numeroTarjeta: '',
@@ -45,7 +45,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
   const [isClickedOtherPayment, setIsClickedOtherPayment] = useState(false);
   const handleCardClick = (method) => {
     if (isConfirmed) setIsClickedOtherPayment(true);
-    setSelectedMethod(method);
+    setSelectedPaymentMethod(method);
     setStatus(null);
     setErrors({});
   };
@@ -85,17 +85,16 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
     if (isConfirmed) return;
   
     let formErrors = {};
   
-    if (!selectedMethod) {
+    if (!selectedPaymentMethod) {
       setErrors({ metodoPago: 'Debes seleccionar un método de pago.' });
       return;
     }
   
-    if (selectedMethod === 'Tarjeta') {
+    if (selectedPaymentMethod === 'Tarjeta') {
       const { nombre, numeroTarjeta, pin, numeroDocumento, tipoDocumento } = paymentData;
   
       if (!nombre) formErrors.nombre = 'El nombre es requerido.';
@@ -123,7 +122,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
     }
   
     try {
-      if (selectedMethod === 'Tarjeta') {
+      if (selectedPaymentMethod === 'Tarjeta') {
         setStatus('success');
         setReceiptNumber(Math.floor(Math.random() * 1000) + 1);
       } else {
@@ -137,7 +136,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
         body: JSON.stringify({
           recipientEmail: `${transporterInfo}`,
           subject: 'Confirmación de Cotización',
-          text: `Tu cotización ha sido confirmada. Método de pago: ${selectedMethod}${receiptNumber ? `. Número de recibo: ${receiptNumber}` : ''}.`,
+          text: `Tu cotización ha sido confirmada. Método de pago: ${selectedPaymentMethod}${receiptNumber ? `. Número de recibo: ${receiptNumber}` : ''}.`,
         }),
       })
         .then(response => response.json())
@@ -145,6 +144,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
         .catch(error => console.error('Error:', error));
   
       onPayment(paymentData, receiptNumber);
+      setSelectedPaymentMethod(selectedPaymentMethod);
       setIsConfirmed(true);
       setNotificationVisible(true);
       setShowModal(true);
@@ -171,9 +171,9 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
           {paymentMethods.map((method) => (
             <div className='col-md-4 mb-4' key={method}>
               <Card
-                className={`cursor-pointer ${selectedMethod === method ? 'border-primary' : 'border-secondary'} card`}
+                className={`cursor-pointer ${selectedPaymentMethod === method ? 'border-primary' : 'border-secondary'} card`}
                 onClick={() => handleCardClick(method)}
-                style={{ borderColor: selectedMethod === method ? '#0077B6' : '#CAF0F8', borderWidth: selectedMethod === method ? '3px' : '0px'}}
+                style={{ borderColor: selectedPaymentMethod === method ? '#0077B6' : '#CAF0F8', borderWidth: selectedPaymentMethod === method ? '3px' : '0px'}}
               >
                 <Card.Img 
                   variant='top' 
@@ -190,8 +190,8 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
           ))}
         </div>
 
-        {selectedMethod === 'Tarjeta' && (
-          <div className='payment-fields' style={{ backgroundColor: '#EAF6FF', padding: '1rem', borderRadius: '5px' }}>
+        {selectedPaymentMethod === 'Tarjeta' && (
+          <div className='' style={{ backgroundColor: '#EAF6FF', padding: '1rem', borderRadius: '5px' }}>
             <div className='mb-2'>
               <input
                 type='text'
@@ -199,24 +199,23 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
                 placeholder='Nombre Completo' 
                 value={paymentData.nombre}
                 onChange={handleInputChange}
-                className='form-control'
+                className='form-control '
                 style={{ borderColor: '#0077B6' }}
               />
               {errors.nombre && <small className='text-danger'>{errors.nombre}</small>}
             </div>
             <div className='mb-2'>
-              <input
+            <input
                 type='text'
                 name='numeroTarjeta'
-                placeholder='Número de Tarjeta'
+                placeholder='Numero de tarjeta' 
                 value={paymentData.numeroTarjeta}
                 onChange={(e) => {
                   const filteredInput = e.target.value.replace(/\D/g, ''); 
                   setPaymentData({ ...paymentData, numeroTarjeta: filteredInput });
                 }}
-                className='form-control'
+                className='form-control '
                 style={{ borderColor: '#0077B6' }}
-                maxLength={16} 
               />
               {errors.numeroTarjeta && <small className='text-danger'>{errors.numeroTarjeta}</small>}
             </div>
@@ -240,7 +239,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
                 name='tipoDocumento'
                 value={paymentData.tipoDocumento}
                 onChange={handleInputChange}
-                className='form-control'
+                className='form-control payment-fields'
                 style={{ borderColor: '#0077B6' }}
               >
                 <option value=''>Seleccione un tipo de documento</option>
@@ -259,7 +258,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
                 placeholder='Número de Documento'
                 value={paymentData.numeroDocumento}
                 onChange={handleInputChange}
-                className='form-control'
+                className='form-control '
                 style={{ borderColor: '#0077B6' }}
               />
               {errors.numeroDocumento && <small className='text-danger'>{errors.numeroDocumento}</small>}
@@ -283,10 +282,10 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
       
       </form>
 
-      {notificationVisible && (
+      {notificationVisible && selectedPaymentMethod &&(
         <Notification 
           status={status} 
-          receiptNumber={receiptNumber} 
+          paymentMethod={selectedPaymentMethod} 
           onClose={handleNotificationClose}
         />
       )}

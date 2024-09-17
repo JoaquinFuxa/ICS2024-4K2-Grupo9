@@ -140,10 +140,6 @@
     margin-top: 2rem;
   }
   
-  .payment-fields {
-    background-color: #EAF6FF;
-  }
-  
   .payment-method-card {
     transition: border-color 0.3s ease;
   }
@@ -151,7 +147,16 @@
   .payment-method-card:hover {
     border-color: #00B4D8;
   }
-  
+  .form-control{
+    background-color: #a8b8cb !important;
+  }
+  .payment-form select{
+    background-color: #a8b8cb !important;
+    color: rgb(39, 14, 107)!important;
+  }
+  .form-control::placeholder,.payment-form select::placeholder{
+    color: rgb(39, 14, 107)!important;
+  }
   /* CARD */
   .card:hover{
     cursor: pointer;

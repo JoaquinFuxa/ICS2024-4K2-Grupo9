@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Toast } from 'react-bootstrap';
 import '../styles/styles.css';
 
-const Notification = ({ status, receiptNumber, onClose }) => {
+const Notification = ({ status, paymentMethod, onClose }) => {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const Notification = ({ status, receiptNumber, onClose }) => {
   }, [status]);
 
   const message = status === 'success'
-    ? 'Se ha informado al transportista el estado de la cotización.'
+    ? `Se ha informado al transportista el estado de la cotización.Metodo de Pago :${paymentMethod}`
     : 'Error en el procesamiento del pago.';
 
   return (
