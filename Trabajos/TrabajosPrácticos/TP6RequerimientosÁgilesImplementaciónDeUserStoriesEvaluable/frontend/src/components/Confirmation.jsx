@@ -1,21 +1,25 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import '../styles/styles.css'; 
 
-const Confirmation = ({ show, handleClose }) => (
-  <Modal show={show} onHide={handleClose} centered>
-    <Modal.Header closeButton>
-      <Modal.Title>¡Cotización Confirmada!</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-      La cotización ha sido confirmada.
-    </Modal.Body>
-    <Modal.Footer>
-      <Button variant="secondary" onClick={handleClose}>
-        Cerrar
-      </Button>
-    </Modal.Footer>
-  </Modal>
-);
+const Confirmation = ({ show, handleClose, receiptNumber }) => {
+  return (
+    <Modal show={show} onHide={handleClose} className='modal-cotizacion'>
+      <Modal.Header closeButton className='modal-header-custom'>
+        <Modal.Title className='modal-title-custom'>Confirmación de Pago</Modal.Title>
+      </Modal.Header>
+      <Modal.Body >
+        <p>Tu cotización ha sido confirmada.</p>
+        {receiptNumber && (
+          <p><strong>Número de Recibo:</strong> {receiptNumber}</p>
+        )}
+      </Modal.Body>
+      <Modal.Footer className='modal-footer-custom'>
+        <Button variant="secondary" onClick={handleClose} className='btn-custom-close'>
+          Cerrar
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
 
 export default Confirmation;

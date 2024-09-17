@@ -6,7 +6,7 @@
     border-radius: 8px;
   }
   
-  /* Estilo para el título */
+
   .container h2 {
     font-size: 24px;
     margin-bottom: 20px;
@@ -14,14 +14,14 @@
     text-align: center;
   }
   
-  /* Estilo para los párrafos */
   .container p {
     font-size: 16px;
     margin: 10px 0;
     color: #555;
   }
   
-  /* Estilo específico para los datos de la cotización en formato de tabla */
+
+  /* Quote */
   .quote-details {
     border-radius: 8px;
     padding: 2rem;
@@ -60,7 +60,7 @@
   }
   
   
-  /* Notification */
+  /* Payment Form */
   .payment-form {
     margin-top: 20px;
 
@@ -100,7 +100,7 @@
     position: fixed;
     top: 20px;
     right: 20px;
-    z-index: 1050; /* Bootstrap's z-index for toast notifications */
+    z-index: 1050;
   }
   .notification {
     padding: 15px;
@@ -129,9 +129,9 @@
   }
 
   .button-disabled {
-    background-color: #767c78!important; /* Gris claro */
-    border-color: #0d635e; /* Gris claro */
-    cursor: not-allowed; /* Cambia el cursor para indicar que está deshabilitado */
+    background-color: #767c78!important; 
+    border-color: #0d635e; 
+    cursor: not-allowed;
   }
   .payment-form {
     background-color: #CAF0F8;
@@ -145,7 +145,6 @@
   }
   
   .payment-method-card {
-    cursor: pointer;
     transition: border-color 0.3s ease;
   }
   
@@ -153,3 +152,43 @@
     border-color: #00B4D8;
   }
   
+  /* CARD */
+  .card:hover{
+    cursor: pointer;
+    filter: brightness(.95);
+  }
+
+/* Modal */
+
+.modal-header-custom {
+  background-color: #0077B6; 
+  color: #CAF0F8;
+}
+
+.modal-title-custom {
+  color: #CAF0F8; 
+}
+
+.modal-body-custom {
+  background-color: #90E0EF; 
+  color: #03045E; 
+}
+
+.modal-footer-custom {
+  background-color: #00B4D8; 
+}
+
+.btn-custom-close {
+  background-color: #03045E; 
+  border-color: #03045E;
+  color: #CAF0F8;
+}
+.btn-custom-close{
+  background-color: #0077B6 !important; 
+
+}
+.btn-custom-close:hover {
+  background-color: #03045E !important; 
+  border-color: #0077B6 !important;
+  color: white !important;
+}

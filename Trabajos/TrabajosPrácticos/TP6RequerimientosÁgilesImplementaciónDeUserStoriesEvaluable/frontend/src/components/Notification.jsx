@@ -19,9 +19,8 @@ const Notification = ({ status, receiptNumber, onClose }) => {
   }, [status]);
 
   const message = status === 'success'
-    ? receiptNumber 
-      ? `Pago procesado correctamente. Número de comprobante: ${receiptNumber}` 
-      : 'Pago procesado correctamente.'
+    ?  
+      'Se ha informado al transportista el estado de la cotizacion.'
     : 'Error en el procesamiento del pago.';
 
   return (

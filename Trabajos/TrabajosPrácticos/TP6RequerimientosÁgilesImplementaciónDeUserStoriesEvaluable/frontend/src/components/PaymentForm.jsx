@@ -6,11 +6,11 @@ import AlContadoEntregaImage from '../assets/images/contado contra entrega.png';
 import AlContadoRetirarImage from '../assets/images/contado al retirar.png';
 import Notification from './Notification';
 import mockTarjetas from '../services/cardService.js';
+import Confirmation from './Confirmation.jsx';
 
-// Función de validación de tarjeta
 const validarTarjeta = (numeroTarjeta) => {
   const regexTarjeta = /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})$/;
-  return regexTarjeta.test(numeroTarjeta.replace(/\s+/g, '')); // Elimina espacios y verifica
+  return regexTarjeta.test(numeroTarjeta.replace(/\s+/g, ''));
 };
 
 const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
@@ -41,6 +41,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [errors, setErrors] = useState({});
   const [notificationVisible, setNotificationVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false); // Estado para el modal
 
   const handleCardClick = (method) => {
     if (isConfirmed) return;
@@ -50,6 +51,12 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
   };
 
   const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === 'pin' && value.length > 3) {
+      return;
+    }
+  
     setPaymentData({ ...paymentData, [e.target.name]: e.target.value });
   };
 
@@ -88,6 +95,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
       if (!nombre) formErrors.nombre = 'El nombre es requerido.';
       if (!numeroTarjeta) formErrors.numeroTarjeta = 'El número de tarjeta es requerido.';
       if (!pin) formErrors.pin = 'El PIN es requerido.';
+      if (pin.length !== 3) formErrors.pin = 'El PIN debe ser de exactamente 3 dígitos.';
       if (!numeroDocumento) formErrors.numeroDocumento = 'El número de documento es requerido.';
       if (!tipoDocumento) formErrors.tipoDocumento = 'El tipo de documento es requerido.';
   
@@ -104,6 +112,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
       setErrors(formErrors);
       setStatus('error');
       setNotificationVisible(true);
+
       return;
     }
   
@@ -114,7 +123,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
       } else {
         setReceiptNumber(null);
       }
-  
+  console.log(receiptNumber);
       fetch('http://localhost:3000/send-email', {
         method: 'POST',
         headers: {
@@ -133,6 +142,8 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
       onPayment(paymentData, receiptNumber);
       setIsConfirmed(true);
       setNotificationVisible(true);
+      setShowModal(true);
+
     } catch (error) {
       console.error('Error en la solicitud fetch:', error);
       setStatus('error');
@@ -140,7 +151,9 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
     }
   };
   
-
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   const handleNotificationClose = () => {
     setNotificationVisible(false);
   };
@@ -153,14 +166,15 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
           {paymentMethods.map((method) => (
             <div className="col-md-4 mb-4" key={method}>
               <Card
-                className={`cursor-pointer ${selectedMethod === method ? 'border-primary' : 'border-secondary'}`}
+                className={`cursor-pointer ${selectedMethod === method ? 'border-primary' : 'border-secondary'} card`}
                 onClick={() => handleCardClick(method)}
-                style={{ borderColor: selectedMethod === method ? '#0077B6' : '#CAF0F8' }}
+                style={{ borderColor: selectedMethod === method ? '#0077B6' : '#CAF0F8', borderWidth: selectedMethod === method ? '3px' : '0px'}}
               >
                 <Card.Img 
                   variant="top" 
-                  src={imageMethods[method]} 
+                  src={imageMethods[method]}  
                   alt={method}
+                  className='card'
                   style={{ height: '200px', objectFit: 'contain' }} 
                 />
                 <Card.Body>
@@ -191,12 +205,17 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
                 name="numeroTarjeta"
                 placeholder="Número de Tarjeta"
                 value={paymentData.numeroTarjeta}
-                onChange={handleInputChange}
+                onChange={(e) => {
+                  const filteredInput = e.target.value.replace(/\D/g, ''); 
+                  setPaymentData({ ...paymentData, numeroTarjeta: filteredInput });
+                }}
                 className="form-control"
                 style={{ borderColor: '#0077B6' }}
+                maxLength={16} 
               />
               {errors.numeroTarjeta && <small className="text-danger">{errors.numeroTarjeta}</small>}
             </div>
+
             <div className="mb-2">
               <input
                 type="password"
@@ -206,6 +225,7 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
                 onChange={handleInputChange}
                 className="form-control"
                 style={{ borderColor: '#0077B6' }}
+                maxLength={3}
               />
               {errors.pin && <small className="text-danger">{errors.pin}</small>}
             </div>
@@ -245,15 +265,16 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
         type="submit"
         variant="primary"
         style={{
-          backgroundColor: isConfirmed ? '#B0B0B0' : '#0077B6', // Gris si está deshabilitado, azul si no lo está
+          backgroundColor: isConfirmed ? '#B0B0B0' : '#0077B6',
           borderColor: isConfirmed ? '#B0B0B0' : '#0077B6',
           marginTop: '1rem',
-          cursor: isConfirmed ? 'not-allowed' : 'pointer', // Cambia el cursor si está deshabilitado
+          cursor: isConfirmed ? 'not-allowed' : 'pointer',
         }}
         disabled={isConfirmed}
       >
         {isConfirmed ? 'Confirmado' : 'Confirmar'}
       </Button>
+      
       </form>
 
       {notificationVisible && (
@@ -263,12 +284,15 @@ const PaymentForm = ({ paymentMethods, onPayment, transporterInfo }) => {
           onClose={handleNotificationClose}
         />
       )}
+      
       {errors.metodoPago && (
       <Alert variant="danger" className="mt-3">
         <i className="bi bi-exclamation-triangle-fill me-2"></i>
         {errors.metodoPago}
       </Alert>
       )}
+      <Confirmation show={showModal} handleClose={handleCloseModal} receiptNumber={receiptNumber} />
+
     </div>
   );
 };

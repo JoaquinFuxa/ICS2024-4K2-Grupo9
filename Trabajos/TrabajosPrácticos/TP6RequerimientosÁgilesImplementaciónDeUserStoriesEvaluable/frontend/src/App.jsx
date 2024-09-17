@@ -22,6 +22,8 @@ const App = () => {
     if(receiptNumber){
       setReceiptNumber(receiptNumber); // Almacenar el número de recibo
     }
+    setSelectedPaymentMethod();
+    setConfirmationVisible(true);
     setPaymentStatus('success');  // Mostrar notificación de éxito
   };
   
@@ -42,10 +44,6 @@ const App = () => {
         transporterInfo={quote.email}
       />
     {paymentStatus && <Notification status={paymentStatus} receiptNumber={receiptNumber} />}
-<Confirmation 
-        show={confirmationVisible} 
-        handleClose={handleCloseConfirmation} 
-      />
     </div>
   );
 };
